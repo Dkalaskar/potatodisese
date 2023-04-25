@@ -1,0 +1,1 @@
+In This Project I Predict the Potato Disease Predication 
