@@ -121,6 +121,7 @@ celerybeat.pid
 
 #Extra Files/Folder
 /data
+/models
 
 # Environments
 .env
