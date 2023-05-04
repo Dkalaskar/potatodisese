@@ -5,6 +5,8 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
+import cv2
+from scipy.spatial.distance import cosine
 
 app = FastAPI()
 
@@ -20,7 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+width = 256
+height = 256
 MODEL = tf.keras.models.load_model("D:/PotatoDisease/models/1")
 CLASS_NAMES = ["Early Blight","Late Blight","Healthy"]
 
@@ -39,15 +42,30 @@ async def predict(
     file: UploadFile = File(...)
 ):
     image = read_file_as_image(await file.read())
-    img_batch = np.expand_dims(image,0)
+     
+    ##New Code
+    #image_array = np.array(Image.open(image))
+    resize_image = cv2.resize(image,(width, height))
+    img_batch = np.expand_dims(resize_image,0)
     
-    predications = MODEL.predict(img_batch)
-    predicted_class = CLASS_NAMES[np.argmax(predications[0])]
-    confidence = np.max(predications[0])
-    return{
-        'class':predicted_class,
-        'confidence':float(confidence)
-    }
+    ##End  
+    #img_batch = np.expand_dims(image,0)#Old Code
+    
+    try:
+        
+    
+        predications = MODEL.predict(img_batch)
+        predicted_class = CLASS_NAMES[np.argmax(predications[0])]
+        confidence = np.max(predications[0])
+        
+        return{
+          'class':predicted_class,
+          'confidence':float(confidence),
+          
+        }
+        
+    except ValueError as e:
+        print("Image Shape is Not in formated",str(e) )   
 
 
 
