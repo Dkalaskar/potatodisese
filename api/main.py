@@ -49,25 +49,25 @@ async def predict(
     img_batch = np.expand_dims(resize_image,0)
     
     ##End  
-    #img_batch = np.expand_dims(image,0)#Old Code
-    
     try:
-        
-    
         predications = MODEL.predict(img_batch)
         predicted_class = CLASS_NAMES[np.argmax(predications[0])]
         confidence = np.max(predications[0])
         
-        return{
-          'class':predicted_class,
-          'confidence':float(confidence),
-          
-        }
+        if confidence > 0.75:
+        
+            return{
+            'class':predicted_class,
+            'confidence':float(confidence),
+            'prediction_status': 'Predicted'
+            }
+        else:
+            return {
+                'prediction_status': 'Not Predicted'
+            }
         
     except ValueError as e:
         print("Image Shape is Not in formated",str(e) )   
-
-
 
 if __name__ == "__main__":
     uvicorn.run(app, host='localhost', port=8080)
