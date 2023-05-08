@@ -1,0 +1,7 @@
+fastapi 
+uvicorn
+numpy
+io 
+PIL
+tensorflow
+cv2
