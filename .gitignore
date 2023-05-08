@@ -123,6 +123,7 @@ celerybeat.pid
 /data
 /models
 /potato.h5
+/api/test.py
 
 # Environments
 .env
