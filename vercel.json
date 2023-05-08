@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/main.py"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/api/main.py"
+      }
+    ],
+    "functions": {
+      "api/main.py": {
+        "runtime": "python3.9"
+      }
+    }
+  }
