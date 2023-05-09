@@ -1,10 +1,20 @@
-
 {
-  "builds":[
-    {"src":"/api/main.py", "use":"@now/python"}
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/main.py"
+    }
   ],
-  "routes":[
-    {"src":"/(.*)", "dest":"/api/main.py"}
-  ]
+  "functions": {
+    "api/main.py": {
+      "runtime": "python3.10.8"
+    }
+  }
 }
 
