@@ -1,18 +1,19 @@
 {
-    "functions": {
-      "api/main.py": {
-        "runtime": "python3.10",
-        "memory": 1024
-      }
-    },
-    "rewrites": [
+    "version": 2,
+    "routes": [
       {
-        "source": "/api/(.*)",
-        "destination": "/api/main.py"
+        "src": "/api/(.*)",
+        "dest": "/api/main.py",
+        "use": "@vercel/python"
       },
       {
-        "source": "/(.*)",
-        "destination": "/api/main.py"
+        "src": "/(.*)",
+        "dest": "/api/main.py"
       }
-    ]
+    ],
+    "functions": {
+      "api/main.py": {
+        "runtime": "python3.10.8"
+      }
+    }
   }
